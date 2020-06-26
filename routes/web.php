@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'Auth\LoginController@showLoginForm');  
+
+Auth::routes();
+
+Route::group(['middleware' => ['auth', 'bindings']], function () {
+    Route::get('/home', 'HomeController@index');
 });
