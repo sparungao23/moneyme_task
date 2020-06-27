@@ -54,12 +54,12 @@ class TransactionService extends BaseService
      * Updates a transaction.
      *
      * @param Transaction $request
-     * @param int                 $id
+     * @param int $id
      *
      * @return boolean
      */
     public function updateTransaction(TransactionRequest $request, int $id)
     {
-        return $this->repository->updateTransaction($request, $id);
+        return $this->repository->updateTransaction($request->input(), $id);
     }
 }

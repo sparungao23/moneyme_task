@@ -21,8 +21,10 @@ class TransactionController extends Controller
 
     /**
      * Transaction service.
+     * Transaction transformer
      *
      * @var TransactionService
+     * @var TransactionTransformer
      */
     protected $transactionService = null;
 
@@ -53,7 +55,11 @@ class TransactionController extends Controller
      */
     public function show(Request $request, Transaction $transaction)
     {
-        return response()->item($transaction, $this->transactionTransformer, Transaction::RESOURCE_KEY);
+        return response()->item(
+            $transaction,
+            $this->transactionTransformer,
+            Transaction::RESOURCE_KEY
+        );
     }
 
     /**
@@ -66,27 +72,32 @@ class TransactionController extends Controller
     public function store(TransactionRequest $request)
     {
         $transaction = $this->transactionService->createTransaction($request);
-        return response()->item($transaction, $this->transactionTransformer, Transaction::RESOURCE_KEY)->setStatusCode(201);
+
+        return response()->item(
+            $transaction,
+            $this->transactionTransformer,
+            Transaction::RESOURCE_KEY
+        )->setStatusCode(201);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param BusinessUnitRequest $request
-     * @param BusinessUnit        $businessUnit
+     * @param TransactionRequest $request
+     * @param Transaction   $transaction
      *
      * @return JsonResponse
      */
-    public function update(BusinessUnitRequest $request, BusinessUnit $businessUnit)
+    public function update(TransactionRequest $request, Transaction $transaction)
     {
-        if ($request->user()->cannot('edit-business-unit', $businessUnit)) {
-            return response()->errorForbidden('You do not have permission to edit business unit.');
+        if (!$this->transactionService->updateTransaction($request, $transaction->id)) {
+            return response()->errorInternal('Updating transaction failed.');
         }
 
-        if (!$this->businessUnitService->updateBusinessUnit($request, $businessUnit->id)) {
-            return response()->errorInternal('Updating business unit failed.');
-        }
-
-        return response()->item($this->businessUnitService->getById($businessUnit->id), $this->transformer, BusinessUnit::RESOURCE_KEY);
+        return response()->item(
+            $this->transactionService->getById($transaction->id),
+            $this->transactionTransformer,
+            Transaction::RESOURCE_KEY
+        );
     }
 }

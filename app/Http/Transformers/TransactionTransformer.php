@@ -54,7 +54,7 @@ class TransactionTransformer extends TransformerAbstract
         'amount_required',
         'term',
         'created_at',
-        'updated_at',
+        'updated_at'
     ];
 
     /**
@@ -66,6 +66,8 @@ class TransactionTransformer extends TransformerAbstract
      */
     public function transform(Transaction $transaction)
     {
-        return $this->getFields($transaction);
+        $fields = $this->getFields($transaction);
+        $fields['url'] = 'http://google.com/' . $fields['id'];
+        return $fields;
     }
 }

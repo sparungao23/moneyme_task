@@ -14,6 +14,7 @@ class Transaction extends Model
         'email',
         'first_name',
         'last_name',
+        'title',
         'mobile_number',
         'amount_required',
         'term'

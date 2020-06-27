@@ -18,7 +18,7 @@ class TransactionRequest extends FormRequest
         return true;
     }
 
-    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -30,9 +30,10 @@ class TransactionRequest extends FormRequest
             'email' => 'string|email|required|max:50',
             'first_name' => 'string|required|max:50',
             'last_name' => 'string|required|max:50',
-            'mobile_number' => 'string|required|max:50',
+            'mobile_number' => 'numeric|required',
             'amount_required' => 'numeric|required',
-            'term' => 'numeric|required'
+            'term' => 'numeric|required',
+            'title' => 'string|required'
         ];
     }
 }
