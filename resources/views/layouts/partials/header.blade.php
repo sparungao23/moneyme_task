@@ -50,7 +50,27 @@
 }
 
 .mm-font-color {
-    color: #64D5D4;
+    color: #64D5D4 !important;
+}
+
+.mm-font-gray {
+    color: #B7ADAD !important;
+}
+
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.separator::before {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #000;
+    border-style: none none dashed; 
+}
+.separator::before {
+    margin-right: .25em;
 }
 
 </style>

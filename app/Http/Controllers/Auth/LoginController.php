@@ -27,9 +27,9 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/loan-request';
+    protected $redirectTo = '/loan-request/1';
 
-    protected $redirectAfterLogout = '/third-party';
+    protected $redirectAfterLogout = '/';
 
     /**
      * Create a new controller instance.
@@ -41,9 +41,4 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function logout(Request $request) 
-    {
-        Auth::logout();
-        return redirect('/third-party');
-    }
 }
