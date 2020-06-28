@@ -28,13 +28,20 @@ SECRET_TOKEN=2690a62af98dc15105e6997399f89cdbf023b81a84b8659acd2acd9d40aa
 7. Run `php artisan db:seed`
 8. Please run both of this command for the application to work.
 ## Development
-Run `php artisan serve --port 8000` for the server
-Run `php artisan serve --port 8004` for the api
-9. Run unit test `./vendor/bin/phpunit`
-
-
-Access the application
-`http://localhost:8000/third-party`
+```
+php artisan serve --port 8000 for the server
+```
+```
+php artisan serve --port 8004` for the api
+```
+9. Run unit test 
+```
+vendor/bin/phpunit
+```
+10. Access the application URL
+```
+http://localhost:8000/third-party
+```
 
 
 
