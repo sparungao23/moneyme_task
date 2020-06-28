@@ -32,7 +32,7 @@ SECRET_TOKEN=2690a62af98dc15105e6997399f89cdbf023b81a84b8659acd2acd9d40aa
 php artisan serve --port 8000 for the server
 ```
 ```
-php artisan serve --port 8004` for the api
+php artisan serve --port 8004 for the api
 ```
 9. Run unit test 
 ```
