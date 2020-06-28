@@ -14,9 +14,9 @@ use Illuminate\Http\Request;
 */
 
 // Communications service endpoints
-#Route::group(['middleware' => ['auth.secret:comms', 'bindings']], function () {
+Route::group(['middleware' => ['auth.secret', 'bindings']], function () {
     Route::resource('transactions', 'Api\TransactionController');
-#});
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

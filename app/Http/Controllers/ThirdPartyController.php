@@ -8,16 +8,6 @@ use GuzzleHttp\Client;
 class ThirdPartyController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -27,6 +17,11 @@ class ThirdPartyController extends Controller
         return view('thirdparty.index');
     }
 
+    /**
+     * Third Party Controller that consume the transaction api and redirect to moneyme website
+     *
+     * @param Request $request
+     */
     public function store(Request $request) 
     {
         $request = $request->all();
@@ -44,7 +39,8 @@ class ThirdPartyController extends Controller
         $client = new Client([
             'headers' => [
                 'Content-Type' => 'application/vnd.api+json',
-                'Accept' => 'application/vnd.pm.v1+json'
+                'Accept' => 'application/vnd.pm.v1+json',
+                'X-Shared-Secret' => env('SECRET_TOKEN')
             ],
             'base_uri' => 'http://127.0.0.1:8004',
             'defaults' => [
@@ -58,13 +54,10 @@ class ThirdPartyController extends Controller
             ]
         );
 
-        if($response->getStatusCode() == 201) {
-            return redirect('loan-request?id=1');
-        }
+        $responseBody = json_decode($response->getBody()->getContents(),true);
 
-        
-       # echo '<pre>' . var_export($response->getStatusCode(), true) . '</pre>';
-       # echo '<pre>' . var_export(json_decode($response->getBody()->getContents(),true), true) . '</pre>';
-      #  die;
+        if($response->getStatusCode() == 201) {
+            return redirect('loan-request/' . $responseBody['data']['id']);
+        }
     }
 }

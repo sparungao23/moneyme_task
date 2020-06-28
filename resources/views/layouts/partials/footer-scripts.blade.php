@@ -31,7 +31,7 @@
 
     $("#amount-required").ionRangeSlider({
         skin: "flat",
-        min: 0,
+        min: 1000,
         max: 20000,
         prefix: "$"
     });

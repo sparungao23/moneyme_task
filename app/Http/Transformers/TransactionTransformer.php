@@ -32,13 +32,17 @@ class TransactionTransformer extends TransformerAbstract
      */
     protected $availableFields = [
         'email',
+        'title',
         'first_name',
         'last_name',
         'mobile_number',
         'amount_required',
         'term',
+        'repayment_amount',
+        'interest',
+        'establishment_fee',
         'created_at',
-        'updated_at',
+        'updated_at'
     ];
 
     /**
@@ -48,11 +52,15 @@ class TransactionTransformer extends TransformerAbstract
      */
     protected $defaultFields = [
         'email',
+        'title',
         'first_name',
         'last_name',
         'mobile_number',
         'amount_required',
         'term',
+        'repayment_amount',
+        'interest',
+        'establishment_fee',
         'created_at',
         'updated_at'
     ];
@@ -67,7 +75,7 @@ class TransactionTransformer extends TransformerAbstract
     public function transform(Transaction $transaction)
     {
         $fields = $this->getFields($transaction);
-        $fields['url'] = 'http://google.com/' . $fields['id'];
+        $fields['url'] = 'http://127.0.0.1:8001/loan-request/' . $fields['id'];
         return $fields;
     }
 }

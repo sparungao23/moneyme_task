@@ -15,13 +15,18 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('email');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('email',50);
+            $table->string('title',5);
+            $table->string('first_name',50);
+            $table->string('last_name',50);
             $table->string('mobile_number');
-            $table->string('amount_required');
+            $table->float('amount_required');
             $table->smallInteger('term');
-            $table->timestamps();
+            $table->float('repayment_amount');
+            $table->float('interest');
+            $table->float('establishment_fee');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 
