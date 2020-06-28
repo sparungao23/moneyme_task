@@ -17,6 +17,9 @@ class Transaction extends Model
         'title',
         'mobile_number',
         'amount_required',
-        'term'
+        'term',
+        'repayment_amount',
+        'interest',
+        'establishment_fee'
     ];
 }

@@ -20,5 +20,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'bindings']], function () {
     Route::get('loan-request/{id}', 'LoanController@index');
     Route::post('loan-request/update', 'LoanController@update');
-    Route::get('/loan-details/{id}', 'LoanController@loanDetails');
+    Route::get('loan-details/{id}', 'LoanController@loanDetails');
+    Route::post('loan-request/update-repayment', 'LoanController@updateRepayment');
+    Route::get('success', 'LoanController@success');
 });

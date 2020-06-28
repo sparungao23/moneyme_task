@@ -87,9 +87,50 @@ class LoanController extends Controller
         return redirect('loan-details/' . $id);
     }
 
-    public function loanDetails(Request $request)
+    public function loanDetails(Transaction $transaction)
     {
-        echo 1;
+
+        $response = $transaction->first();
+        //interest rate default to 10 percent
+        $response->montly_payment = $this->calculatePMT(10, $response->term, $response->amount_required);
+        $response->weekly_payment = money_format('$%i', $response->montly_payment/4);
+        $response->total_interest = ($response->montly_payment * ($response->term * 12)) - $response->amount_required;
+        $response->total_repayment = $response->amount_required + $response->total_interest + 300;
+        return view('loan.details', compact('response'));
     }
+
+    public function updateRepayment(Request $request)
+    {
+        $id = $request->all()['id'];
+        $response = $this->transactionService->getById($id);
+        $response->montly_payment = $this->calculatePMT(10, $response->term, $response->amount_required);
+        $response->total_interest = ($response->montly_payment * ($response->term * 12)) - $response->amount_required;
+        $response->total_repayment = $response->amount_required + $response->total_interest + 300;
+
+        $request = [
+            'repayment_amount' => $response->total_repayment,
+            'interest' => $response->total_interest,
+            'establishment_fee' => 300
+        ];
+        if (!$this->transactionService->updateTransacationRepayment($request, $id)) {
+            return redirect('loan-request/' . $id);
+        }
+        return redirect('success');
+    }
+
+    public function success()
+    {
+        return 'success';
+    }
+
+
+    private function calculatePMT($interest, $years, $loan) 
+    {
+       $months = $years * 12;
+       $interest = $interest / 1200;
+       $amount = $interest * -$loan * pow((1 + $interest), $months) / (1 - pow((1 + $interest), $months));
+       return number_format($amount, 2);
+    }
+
 
 }

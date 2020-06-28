@@ -59,7 +59,6 @@ class TransactionRepository
     public function updateTransaction(array $data, int $id)
     {
         $transaction = $this->model->findOrFail($id);
-
         return $transaction->update($data);
     }
 }

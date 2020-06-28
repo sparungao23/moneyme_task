@@ -21,6 +21,10 @@
   width:700px;
 }
 
+.customWidth {
+    width:500px;
+}
+
 @media only screen and
 (max-width : 1249px ) {
     .container {
@@ -46,6 +50,7 @@
 }
 
 .mm-font-color {
-  color: #64D5D4;
+    color: #64D5D4;
 }
+
 </style>

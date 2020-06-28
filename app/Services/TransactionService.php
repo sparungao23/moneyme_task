@@ -62,4 +62,9 @@ class TransactionService extends BaseService
     {
         return $this->repository->updateTransaction($request->input(), $id);
     }
+
+    public function updateTransacationRepayment(array $request, int $id)
+    {
+        return $this->repository->updateTransaction($request, $id);
+    }
 }
