@@ -41,8 +41,8 @@ vendor/bin/phpunit
 10. Access the application URL
 ```
 http://localhost:8000/third-party
+
+username - sonny@gmail.com
+password - password
 ```
-
-
-
 
